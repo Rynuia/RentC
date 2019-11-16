@@ -61,7 +61,7 @@ namespace RentC
 
         public static void MMenu() //Main menu
         {
-            string strMMenu = "//  1. Register new Car Rent/  2. Update Car Rent/  3. List Rents/  4. List Available Cars/  5. Register new Customer/  6. Update Customer/  7. List Customers/  8. Quit///////    Enter your choice and press (ENTER) to go to the selection./////";
+            string strMMenu = "//  1. Register new Car Rent/  2. Update Car Rent/  3. List Rents/  4. List Available Cars/  5. Register new Customer/  6. Update Customer/  7. List Customers/  8. Quit///////    Enter the number of your choice and press (ENTER) to confirm the selection./////";
             Console.Write(strMMenu.Replace("/", System.Environment.NewLine));
 
             
@@ -69,12 +69,13 @@ namespace RentC
 
             var key = Console.ReadKey(true); //Save the key pressed
 
-            do  //Switch cases not working due "key" variable type. Todo: Check alternatives to Console.ReadKey while keeping the semi-recursive loop structure.
+
+            do  //Switch cases not working due "key"'s variable type. Cannot reiterate "key" without using "input".   Todo: Check alternatives to Console.ReadKey while keeping the semi-recursive loop structure.
             {
                 
-                if (key.Key == ConsoleKey.D1)
+                if (key.Key == ConsoleKey.D1 | key.Key == ConsoleKey.NumPad1)
                 {
-                    Console.WriteLine("Current selection: 1. Register new Car Rent. Press ENTER to confirm.            ");
+                    Console.WriteLine(" Current selection: 1. Register new Car Rent. Press ENTER to confirm.            ");
 
                     var input = Console.ReadKey(true);
                     key = input;
@@ -85,13 +86,13 @@ namespace RentC
                         valid = true;
                     }
 
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);  //Clear last line
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);  //Set cursor to overwrite the last line
 
                 }
 
-                else if (key.Key == ConsoleKey.D2)
+                else if (key.Key == ConsoleKey.D2 | key.Key == ConsoleKey.NumPad2)
                 {
-                    Console.WriteLine("Current selection: 2. Update Car Rent. Press ENTER to confirm.                  ");
+                    Console.WriteLine(" Current selection: 2. Update Car Rent. Press ENTER to confirm.                  ");
 
                     var input = Console.ReadKey(true);
                     key = input;
@@ -102,13 +103,13 @@ namespace RentC
                         valid = true;
                     }
 
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);  //Clear last line
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
 
                 }
 
-                else if (key.Key == ConsoleKey.D3)
+                else if (key.Key == ConsoleKey.D3 | key.Key == ConsoleKey.NumPad3)
                 {
-                    Console.WriteLine("Current selection: 3. List Rents. Press ENTER to confirm.                       ");
+                    Console.WriteLine(" Current selection: 3. List Rents. Press ENTER to confirm.                       ");
 
                     var input = Console.ReadKey(true);
                     key = input;
@@ -119,13 +120,13 @@ namespace RentC
                         valid = true;
                     }
 
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);  //Clear last line
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
 
                 }
 
-                else if (key.Key == ConsoleKey.D4)
+                else if (key.Key == ConsoleKey.D4 | key.Key == ConsoleKey.NumPad4)
                 {
-                    Console.WriteLine("Current selection: 4. List Available Cars. Press ENTER to confirm.              ");
+                    Console.WriteLine(" Current selection: 4. List Available Cars. Press ENTER to confirm.              ");
 
                     var input = Console.ReadKey(true);
                     key = input;
@@ -136,13 +137,13 @@ namespace RentC
                         valid = true;
                     }
 
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);  //Clear last line
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
 
                 }
 
-                else if (key.Key == ConsoleKey.D5)
+                else if (key.Key == ConsoleKey.D5 | key.Key == ConsoleKey.NumPad5)
                 {
-                    Console.WriteLine("Current selection: 5. Register new Customer. Press ENTER to confirm.            ");
+                    Console.WriteLine(" Current selection: 5. Register new Customer. Press ENTER to confirm.            ");
 
                     var input = Console.ReadKey(true);
                     key = input;
@@ -153,13 +154,13 @@ namespace RentC
                         valid = true;
                     }
 
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);  //Clear last line
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
 
                 }
 
-                else if (key.Key == ConsoleKey.D6)
+                else if (key.Key == ConsoleKey.D6 | key.Key == ConsoleKey.NumPad6)
                 {
-                    Console.WriteLine("Current selection: 6. Update Customer. Press ENTER to confirm.                  ");
+                    Console.WriteLine(" Current selection: 6. Update Customer. Press ENTER to confirm.                  ");
 
                     var input = Console.ReadKey(true);
                     key = input;
@@ -170,13 +171,13 @@ namespace RentC
                         valid = true;
                     }
 
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);  //Clear last line
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
 
                 }
 
-                else if (key.Key == ConsoleKey.D7)
+                else if (key.Key == ConsoleKey.D7 | key.Key == ConsoleKey.NumPad7)
                 {
-                    Console.WriteLine("Current selection: 7. List Customers. Press ENTER to confirm.                   ");
+                    Console.WriteLine(" Current selection: 7. List Customers. Press ENTER to confirm.                   ");
 
                     var input = Console.ReadKey(true);
                     key = input;
@@ -187,30 +188,33 @@ namespace RentC
                         valid = true;
                     }
 
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);  //Clear last line
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
 
                 }
 
-                else if (key.Key == ConsoleKey.Escape)
+                else if (key.Key == ConsoleKey.D8 | key.Key == ConsoleKey.NumPad8)
                 {
-                    Console.WriteLine("Are you sure you want to quit? Press ENTER to confirm.                          ");
+                    Console.WriteLine(" Are you sure you want to quit? Press ENTER to confirm.                          ");
 
                     var input = Console.ReadKey(true);
                     key = input;
 
                     if (key.Key == ConsoleKey.Enter) Environment.Exit(0);  //Exit the app
 
-                    Console.SetCursorPosition(0, Console.CursorTop - 1);  //Clear last line
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
 
                 }
 
+                //Todo: Create report menu
+
                 else
                 {
-                    MessageBox.Show("This is not a valid option.");
+                    Console.WriteLine(" This is not a valid option.                                                     ");  //Display Error Message
 
                     var input = Console.ReadKey(true);
                     key = input;
 
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
                 }
 
             }
