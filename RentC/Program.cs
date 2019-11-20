@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Data.SqlClient;
 
 namespace RentC
 {
-    class Menu
+
+    public class Menu
     {
         public static void Welc() //Welcome screen
         {
@@ -82,7 +85,7 @@ namespace RentC
 
                     if (key.Key == ConsoleKey.Enter)
                     {
-                        RegRent();
+                        RegRent();  //Call car rent registeration screen
                         valid = true;
                     }
 
@@ -99,7 +102,7 @@ namespace RentC
 
                     if (key.Key == ConsoleKey.Enter)
                     {
-                        UpRent();
+                        UpRent();  //Call car rent update screen
                         valid = true;
                     }
 
@@ -116,7 +119,7 @@ namespace RentC
 
                     if (key.Key == ConsoleKey.Enter)
                     {
-                        ListRent();
+                        ListRent();  //Call Rent List screen
                         valid = true;
                     }
 
@@ -133,7 +136,7 @@ namespace RentC
 
                     if (key.Key == ConsoleKey.Enter)
                     {
-                        ListCar();
+                        ListCar();  //Call Available Car List screen
                         valid = true;
                     }
 
@@ -150,7 +153,7 @@ namespace RentC
 
                     if (key.Key == ConsoleKey.Enter)
                     {
-                        RegCust();
+                        RegCust();  //Call Customer Registeration screen
                         valid = true;
                     }
 
@@ -167,7 +170,7 @@ namespace RentC
 
                     if (key.Key == ConsoleKey.Enter)
                     {
-                        UpCust();
+                        UpCust();  //Call Customer Update screen
                         valid = true;
                     }
 
@@ -184,7 +187,7 @@ namespace RentC
 
                     if (key.Key == ConsoleKey.Enter)
                     {
-                        ListCust();
+                        ListCust();  //Call Customer List screen
                         valid = true;
                     }
 
@@ -223,10 +226,16 @@ namespace RentC
         }
     }
 
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        [STAThread]  //Enables the use of STA model for Windows Forms compatibility
+
+        public static void Main(string[] args)
         {
+
+            Application.EnableVisualStyles(); //Forms compatibility, enables visual styles for the app
+            Application.SetCompatibleTextRenderingDefault(false); //Forms compatibility, alters TextRenderer behavior
+
             Menu.Welc(); //Call Welcome screen
 
             Menu.MMenu(); //Call Main menu
