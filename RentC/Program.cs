@@ -23,12 +23,17 @@ namespace RentC
                 if (key.Key == ConsoleKey.Escape) Environment.Exit(0);  //Exit the app
                 if (key.Key == ConsoleKey.Enter) break;  //Break from loop, continue the app
             }
-
-            Console.Clear();
         }
 
-        public static void RegRent() //Car Rent Registeration screen
+        public static void RegRent() //Car Rent Registration screen
         {
+            Console.Clear();
+            Console.WriteLine("Opening the car rent registration form.");
+            Application.Run(new RegRentForm());
+            Console.WriteLine("Car rent registration finished. Press ESC to return to the menu. Press ENTER to repeat the operation.\n ");
+            var key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Enter) RegRent();
+            if (key.Key == ConsoleKey.Escape) MMenu();
 
         }
 
@@ -64,6 +69,8 @@ namespace RentC
 
         public static void MMenu() //Main menu
         {
+            Console.Clear();
+
             string strMMenu = "//  1. Register new Car Rent/  2. Update Car Rent/  3. List Rents/  4. List Available Cars/  5. Register new Customer/  6. Update Customer/  7. List Customers/  8. Quit///////    Enter the number of your choice and press (ENTER) to confirm the selection./////";
             Console.Write(strMMenu.Replace("/", System.Environment.NewLine));
 
@@ -85,7 +92,7 @@ namespace RentC
 
                     if (key.Key == ConsoleKey.Enter)
                     {
-                        RegRent();  //Call car rent registeration screen
+                        RegRent();  //Call car rent registration screen
                         valid = true;
                     }
 

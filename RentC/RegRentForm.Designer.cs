@@ -112,6 +112,7 @@
             this.cID_tb.Name = "cID_tb";
             this.cID_tb.Size = new System.Drawing.Size(120, 26);
             this.cID_tb.TabIndex = 6;
+            this.cID_tb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cID_tb_KeyPress);
             // 
             // city_tb
             // 
