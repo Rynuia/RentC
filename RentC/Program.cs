@@ -52,7 +52,14 @@ namespace RentC
 
         public static void ListRent() //Rent Listing screen
         {
-
+            Console.Clear();
+            Console.WriteLine("Opening the car rent list.");
+            Application.Run(new ListRentForm());
+            Console.Clear();
+            Console.WriteLine("Car rent listing finished. Press ESC to return to the menu. Press ENTER to repeat the operation.\n ");
+            var key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Enter) ListRent();
+            if (key.Key == ConsoleKey.Escape) MMenu();
         }
 
         public static void ListCar() //Available Car Listing screen
@@ -60,7 +67,7 @@ namespace RentC
 
         }
 
-        public static void RegCust() //Customer Registeration screen
+        public static void RegCust() //Customer Registration screen
         {
 
         }
@@ -222,8 +229,6 @@ namespace RentC
                     Console.SetCursorPosition(0, Console.CursorTop - 1);
 
                 }
-
-                //Todo: Create report menu
 
                 else
                 {
