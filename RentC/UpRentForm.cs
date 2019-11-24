@@ -25,8 +25,7 @@ namespace RentC
 
         private void UpRentForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'rentc_dbDataSet.Reservations' table. You can move, or remove it, as needed.
-            this.reservationsTableAdapter.Fill(this.rentc_dbDataSet.Reservations);
+
 
         }
 
@@ -44,14 +43,7 @@ namespace RentC
             SqlCommand getdata = new SqlCommand();
 
             string carIDquery = "SELECT CarID FROM Cars WHERE Plate='" + cPlate_tb.Text + "'";
-
-            //string cIDquery = "SELECT CostumerID FROM Reservations WHERE Plate='" + cPlate_tb.Text + "'";
-            //string sdquery = "SELECT StartDate FROM Reservations WHERE Plate='" + cPlate_tb.Text + "'";
-            //string edquery = "SELECT EndDate FROM Reservations WHERE Plate='" + cPlate_tb.Text + "'";
-            //string cityquery = "SELECT Location FROM Reservations WHERE Plate='" + cPlate_tb.Text + "'";
-
             string selquery = "SELECT * FROM Reservations WHERE CarID=@carID";
-            //string selquery = "SELECT CostumerID FROM Reservations WHERE Plate='" + cPlate_tb.Text + "'";
 
             sqlCon.Open();
 
@@ -91,15 +83,13 @@ namespace RentC
                     if (dr.HasRows)
                     {
                         cID_db.Text = dr["CostumerID"].ToString();
-                        //sDate_db.Text = dr["StartDate"].ToString();
-                        //eDate_db.Text = dr["EndDate"].ToString();
                         city_db.Text = dr["Location"].ToString();
                         cID_tb.Text = dr["CostumerID"].ToString();
                         start_tp.Text = dr["StartDate"].ToString();
                         end_tp.Text = dr["EndDate"].ToString();
                         city_tb.Text = dr["Location"].ToString();
                         sDate_db.Text = start_tp.Value.ToShortDateString();
-                        eDate_db.Text = start_tp.Value.ToShortDateString();
+                        eDate_db.Text = end_tp.Value.ToShortDateString();
                     }
 
                     else
@@ -110,7 +100,8 @@ namespace RentC
                 }
                 else
                 {
-                    MessageBox.Show("There are no reservations registered.");
+                    carID_db.Text = String.Empty;
+                    MessageBox.Show("There are no reservations registered for this car.");
                     allgood = false;
                 }
                 dr.Close();
@@ -130,15 +121,15 @@ namespace RentC
             }
             else
             {
-                cPlate_new_tb.Text = string.Empty;
-                cID_tb.Text = string.Empty;
-                start_tp.Text = string.Empty;
-                end_tp.Text = string.Empty;
-                city_tb.Text = string.Empty;
-                cID_db.Text = string.Empty;
-                sDate_db.Text = string.Empty;
-                eDate_db.Text = string.Empty;
-                city_db.Text = string.Empty;
+                cPlate_new_tb.Text = String.Empty;
+                cID_tb.Text = String.Empty;
+                start_tp.Text = String.Empty;
+                end_tp.Text = String.Empty;
+                city_tb.Text = String.Empty;
+                cID_db.Text = String.Empty;
+                sDate_db.Text = String.Empty;
+                eDate_db.Text = String.Empty;
+                city_db.Text = String.Empty;
                 cPlate_new_tb.Enabled = false;
                 cID_tb.Enabled = false;
                 start_tp.Enabled = false;
@@ -194,7 +185,7 @@ namespace RentC
             dr.Close();
 
             checkcCity.Connection = sqlCon;
-            checkcCity.CommandText = "SELECT * FROM Cars where Location='" + city_tb.Text + "' and Plate='" + cPlate_tb.Text + "'";  //Validation for car availability in the city
+            checkcCity.CommandText = "SELECT * FROM Cars where Location='" + city_tb.Text + "' and Plate='" + cPlate_new_tb.Text + "'";  //Validation for car availability in the city
             dr = checkcCity.ExecuteReader();
             if (dr.Read()) citypass = true;
             else
@@ -215,10 +206,6 @@ namespace RentC
             }
             else datepass = true;
 
-            getcarID.Connection = sqlCon;
-            getcarID.CommandText = "SELECT CarID FROM Cars WHERE Plate='" + cPlate_tb.Text + "'";  //Get carID from Cars table using Plate
-            int carID = (int)getcarID.ExecuteScalar();
-
             sqlCon.Close();
 
             String plateerr;
@@ -228,7 +215,7 @@ namespace RentC
             String errmsg = "";
             String nl = Environment.NewLine;
 
-            if (platepass == false) plateerr = "Invalid Car Plate. Check the Car Plate field again. " + nl;
+            if (platepass == false) plateerr = "There are no cars with this plate. Check the Car Plate field again. " + nl;
             else plateerr = "";
 
 
@@ -253,24 +240,39 @@ namespace RentC
 
             else if (allgood == true)
             {
-                String query = "INSERT INTO Reservations(CarID, CostumerID, StartDate, EndDate, Location)VALUES(@CarID, @CostumerID, @StartDate, @EndDate, @Location)";
+                getcarID.Connection = sqlCon;
+                getcarID.CommandText = "SELECT CarID FROM Cars WHERE Plate='" + cPlate_new_tb.Text + "'";  //Get carID from Cars table using Plate
+                int carID = (int)getcarID.ExecuteScalar();
 
-                //TODO do update
+                String query = "UPDATE Reservations SET CarID = @CarID, CostumerID = @CostumerID, StartDate = @StartDate, EndDate = @EndDate, Location = @Location, Plate = @Plate WHERE CarID = @oCarID";
 
-                using (SqlCommand doRegister = new SqlCommand(query, sqlCon))
+                using (SqlCommand doUpdate = new SqlCommand(query, sqlCon))
                 {
-                    doRegister.Parameters.Add("@CarID", SqlDbType.Int).Value = carID;
-                    doRegister.Parameters.AddWithValue("@CostumerID", Convert.ToInt32(cID_tb.Text));
-                    doRegister.Parameters.Add("@StartDate", SqlDbType.Date).Value = start_tp.Value.Date;
-                    doRegister.Parameters.Add("@EndDate", SqlDbType.Date).Value = end_tp.Value.Date;
-                    doRegister.Parameters.AddWithValue("@Location", city_tb.Text);
+                    doUpdate.Parameters.Add("@CarID", SqlDbType.Int).Value = carID;
+                    doUpdate.Parameters.AddWithValue("@CostumerID", Convert.ToInt32(cID_tb.Text));
+                    doUpdate.Parameters.Add("@StartDate", SqlDbType.Date).Value = start_tp.Value.Date;
+                    doUpdate.Parameters.Add("@EndDate", SqlDbType.Date).Value = end_tp.Value.Date;
+                    doUpdate.Parameters.AddWithValue("@Location", city_tb.Text);
+                    doUpdate.Parameters.AddWithValue("@oCarID", Convert.ToInt32(carID_db.Text));
+                    doUpdate.Parameters.AddWithValue("@Plate", cPlate_new_tb.Text);
 
                     sqlCon.Open();
 
-                    int i = doRegister.ExecuteNonQuery();
+                    int i = doUpdate.ExecuteNonQuery();
 
-                    if (i != 0) MessageBox.Show("Successfully saved the new registration entry");  //Operation successful
-                    else MessageBox.Show("Error saving the registration");  //Operation failed
+                    if (i != 0)
+                    {
+                        MessageBox.Show("Successfully updated the registration record");  //Operation successful
+
+                        carID_db.Text = carID.ToString();
+                        cID_db.Text = cID_tb.Text;
+                        city_db.Text = city_tb.Text;
+                        sDate_db.Text = start_tp.Value.ToShortDateString();
+                        eDate_db.Text = end_tp.Value.ToShortDateString();
+
+                    }
+
+                    else MessageBox.Show("Error updating the registration record", "Error");  //Operation failed
 
                     sqlCon.Close();
                 }
@@ -279,7 +281,56 @@ namespace RentC
 
         private void btn_delete_Click(object sender, EventArgs e)  //Delete button
         {
-            //use CarID for queries
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this reservation record?", "Warning", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                SqlConnection sqlCon = new SqlConnection(connectionString);
+
+
+                String query = "DELETE FROM Reservations WHERE CarID = @carID";
+
+                using (SqlCommand doDelete = new SqlCommand(query, sqlCon))
+                {
+                    doDelete.Parameters.AddWithValue("@CarID", Convert.ToInt32(carID_db.Text));
+
+                    sqlCon.Open();
+
+                    int i = doDelete.ExecuteNonQuery();
+
+                    if (i != 0)
+                    {
+                        MessageBox.Show("Successfully deleted the registration entry");  //Operation successful
+
+                        carID_db.Text = String.Empty;
+                        cPlate_new_tb.Text = String.Empty;
+                        cID_tb.Text = String.Empty;
+                        start_tp.Text = String.Empty;
+                        end_tp.Text = String.Empty;
+                        city_tb.Text = String.Empty;
+                        cID_db.Text = String.Empty;
+                        sDate_db.Text = String.Empty;
+                        eDate_db.Text = String.Empty;
+                        city_db.Text = String.Empty;
+                        cPlate_new_tb.Enabled = false;
+                        cID_tb.Enabled = false;
+                        start_tp.Enabled = false;
+                        end_tp.Enabled = false;
+                        city_tb.Enabled = false;
+                        btn_update.Enabled = false;
+                        btn_delete.Enabled = false;
+
+                    }
+
+                    else MessageBox.Show("Error deleting the registration record", "Error");  //Operation failed
+
+                    sqlCon.Close();
+                }
+            }
+
+            
+
+
         }
 
         private void btn_exit_Click(object sender, EventArgs e)  //Exit button
