@@ -13,8 +13,6 @@ namespace RentC
 {
     public partial class RegRentForm : Form
     {
-        //SqlCommand statsID;
-        //SqlCommand checkrows;
 
         string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\rentc_db.mdf;Integrated Security = True; Connect Timeout = 30; User Instance = False"; //Connection String
 
@@ -43,8 +41,6 @@ namespace RentC
             SqlCommand checkcID = new SqlCommand();
             SqlCommand checkcCity = new SqlCommand();
             SqlCommand getcarID = new SqlCommand();
-            //statsID = new SqlCommand();
-            //checkrows = new SqlCommand();
 
             sqlCon.Open();
 
@@ -103,29 +99,6 @@ namespace RentC
             }
             else datepass = true;
             
-            getcarID.Connection = sqlCon;
-            getcarID.CommandText = "SELECT CarID FROM Cars WHERE Plate='" + cPlate_tb.Text + "'";  //Get carID from Cars table using Plate
-            int carID = (int)getcarID.ExecuteScalar();
-
-            //checkrows.Connection = sqlCon;
-            //checkrows.CommandText = "SELECT COUNT(*) FROM Reservations";
-            //int rows = (int)checkrows.ExecuteScalar();
-            //if (rows > 0) isNull = false;
-            //else isNull = true;
-
-            //int StatsID;
-
-            //if (isNull == false)
-            //{
-            //    statsID.Connection = sqlCon;
-            //    statsID.CommandText = "SELECT MAX(ReservStatsID) FROM Reservations";
-            //    StatsID = (int)statsID.ExecuteScalar();
-            //}
-            //else
-            //{
-            //    StatsID = 1;
-            //}
-
             sqlCon.Close();
 
             String plateerr;
@@ -136,7 +109,7 @@ namespace RentC
             String errmsg = "";
             String nl = Environment.NewLine;
 
-            if (platepass == false) plateerr = "Invalid Car plate doesn't exists. Check the Car Plate field again. " + nl;
+            if (platepass == false) plateerr = "There are no cars with this plate. Check the Car Plate field again. " + nl;
             else plateerr = "";
 
             if (carpass == false)
@@ -167,27 +140,28 @@ namespace RentC
 
             else if (allgood == true)
             {
-                //SqlCommand doRegister = new SqlCommand();
+                getcarID.Connection = sqlCon;
+                getcarID.CommandText = "SELECT CarID FROM Cars WHERE Plate='" + cPlate_tb.Text + "'";  //Get carID from Cars table using Plate
+                int carID = (int)getcarID.ExecuteScalar();
 
-                //String query = "INSERT INTO Reservations(CarID, CostumerID, ReservStatsID, StartDate, EndDate, Location) VALUES (@CarID, @CostumerID, @ReservStatsID, @StartDate, @EndDate, @Location)";
-                String query = "INSERT INTO Reservations(CarID, CostumerID, StartDate, EndDate, Location)VALUES(@CarID, @CostumerID, @StartDate, @EndDate, @Location)";
+
+                String query = "INSERT INTO Reservations(CarID, CostumerID, StartDate, EndDate, Location, Plate)VALUES(@CarID, @CostumerID, @StartDate, @EndDate, @Location, @Plate)";
 
                 using (SqlCommand doRegister = new SqlCommand(query, sqlCon))
                 {
-                    //doRegister.CommandText = ("INSERT INTO Reservations(CarID, CostumerID, ReservStatsID, StartDate, EndDate, Location) VALUES (@CarID, @CostumerID, @ReservStatsID, @StartDate, @EndDate, @Location)");
                     doRegister.Parameters.Add("@CarID", SqlDbType.Int).Value = carID;
                     doRegister.Parameters.AddWithValue("@CostumerID", Convert.ToInt32(cID_tb.Text));
-                    //doRegister.Parameters.Add("@ReservStatsID", SqlDbType.TinyInt).Value = statsID;
                     doRegister.Parameters.Add("@StartDate", SqlDbType.Date).Value = start_tp.Value.Date;
                     doRegister.Parameters.Add("@EndDate", SqlDbType.Date).Value = end_tp.Value.Date;
                     doRegister.Parameters.AddWithValue("@Location", city_tb.Text);
+                    doRegister.Parameters.AddWithValue("@Plate", cPlate_tb.Text);
 
                     sqlCon.Open();
 
                     int i = doRegister.ExecuteNonQuery();
 
-                    if (i != 0) MessageBox.Show("Successfully saved the new registration entry");  //Operation successful
-                    else MessageBox.Show("Error saving the registration");  //Operation failed
+                    if (i != 0) MessageBox.Show("Successfully saved the new registration record");  //Operation successful
+                    else MessageBox.Show("Error saving the registration record");  //Operation failed
 
                     sqlCon.Close();
                 }

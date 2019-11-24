@@ -110,6 +110,7 @@
             // 
             this.cID_tb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cID_tb.Location = new System.Drawing.Point(172, 89);
+            this.cID_tb.MaxLength = 6;
             this.cID_tb.Name = "cID_tb";
             this.cID_tb.Size = new System.Drawing.Size(120, 26);
             this.cID_tb.TabIndex = 6;
