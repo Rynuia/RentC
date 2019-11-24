@@ -37,12 +37,13 @@
             this.cPlate_tb = new System.Windows.Forms.TextBox();
             this.cID_tb = new System.Windows.Forms.TextBox();
             this.city_tb = new System.Windows.Forms.TextBox();
-            this.confirmb = new System.Windows.Forms.Button();
+            this.btn_confirm = new System.Windows.Forms.Button();
+            this.start_tp = new System.Windows.Forms.DateTimePicker();
+            this.end_tp = new System.Windows.Forms.DateTimePicker();
             this.rentc_dbDataSet = new RentC.rentc_dbDataSet();
             this.carsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.carsTableAdapter = new RentC.rentc_dbDataSetTableAdapters.CarsTableAdapter();
-            this.start_tp = new System.Windows.Forms.DateTimePicker();
-            this.end_tp = new System.Windows.Forms.DateTimePicker();
+            this.btn_exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.rentc_dbDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.carsBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -122,29 +123,15 @@
             this.city_tb.Size = new System.Drawing.Size(120, 26);
             this.city_tb.TabIndex = 9;
             // 
-            // confirmb
+            // btn_confirm
             // 
-            this.confirmb.Location = new System.Drawing.Point(156, 303);
-            this.confirmb.Name = "confirmb";
-            this.confirmb.Size = new System.Drawing.Size(99, 43);
-            this.confirmb.TabIndex = 10;
-            this.confirmb.Text = "Confirm";
-            this.confirmb.UseVisualStyleBackColor = true;
-            this.confirmb.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // rentc_dbDataSet
-            // 
-            this.rentc_dbDataSet.DataSetName = "rentc_dbDataSet";
-            this.rentc_dbDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // carsBindingSource
-            // 
-            this.carsBindingSource.DataMember = "Cars";
-            this.carsBindingSource.DataSource = this.rentc_dbDataSet;
-            // 
-            // carsTableAdapter
-            // 
-            this.carsTableAdapter.ClearBeforeFill = true;
+            this.btn_confirm.Location = new System.Drawing.Point(71, 303);
+            this.btn_confirm.Name = "btn_confirm";
+            this.btn_confirm.Size = new System.Drawing.Size(99, 43);
+            this.btn_confirm.TabIndex = 10;
+            this.btn_confirm.Text = "Confirm";
+            this.btn_confirm.UseVisualStyleBackColor = true;
+            this.btn_confirm.Click += new System.EventHandler(this.button1_Click);
             // 
             // start_tp
             // 
@@ -170,14 +157,39 @@
             this.end_tp.TabIndex = 12;
             this.end_tp.Value = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
             // 
+            // rentc_dbDataSet
+            // 
+            this.rentc_dbDataSet.DataSetName = "rentc_dbDataSet";
+            this.rentc_dbDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // carsBindingSource
+            // 
+            this.carsBindingSource.DataMember = "Cars";
+            this.carsBindingSource.DataSource = this.rentc_dbDataSet;
+            // 
+            // carsTableAdapter
+            // 
+            this.carsTableAdapter.ClearBeforeFill = true;
+            // 
+            // btn_exit
+            // 
+            this.btn_exit.Location = new System.Drawing.Point(249, 303);
+            this.btn_exit.Name = "btn_exit";
+            this.btn_exit.Size = new System.Drawing.Size(99, 43);
+            this.btn_exit.TabIndex = 13;
+            this.btn_exit.Text = "Exit";
+            this.btn_exit.UseVisualStyleBackColor = true;
+            this.btn_exit.Click += new System.EventHandler(this.btn_exit_Click);
+            // 
             // RegRentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 392);
+            this.Controls.Add(this.btn_exit);
             this.Controls.Add(this.end_tp);
             this.Controls.Add(this.start_tp);
-            this.Controls.Add(this.confirmb);
+            this.Controls.Add(this.btn_confirm);
             this.Controls.Add(this.city_tb);
             this.Controls.Add(this.cID_tb);
             this.Controls.Add(this.cPlate_tb);
@@ -206,11 +218,12 @@
         private System.Windows.Forms.TextBox cPlate_tb;
         private System.Windows.Forms.TextBox cID_tb;
         private System.Windows.Forms.TextBox city_tb;
-        private System.Windows.Forms.Button confirmb;
+        private System.Windows.Forms.Button btn_confirm;
         private rentc_dbDataSet rentc_dbDataSet;
         private System.Windows.Forms.BindingSource carsBindingSource;
         private rentc_dbDataSetTableAdapters.CarsTableAdapter carsTableAdapter;
         private System.Windows.Forms.DateTimePicker start_tp;
         private System.Windows.Forms.DateTimePicker end_tp;
+        private System.Windows.Forms.Button btn_exit;
     }
 }

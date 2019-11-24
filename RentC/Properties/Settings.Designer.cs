@@ -27,7 +27,7 @@ namespace RentC.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\rentc_db.mdf;" +
-            "Integrated Security=True;Connect Timeout=30")]
+            "Integrated Security=True;Connect Timeout=30;User Instance=False")]
         public string rentc_dbConnectionString {
             get {
                 return ((string)(this["rentc_dbConnectionString"]));
