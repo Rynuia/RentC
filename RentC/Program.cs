@@ -30,6 +30,7 @@ namespace RentC
             Console.Clear();
             Console.WriteLine("Opening the car rent registration form.");
             Application.Run(new RegRentForm());
+            Console.Clear();
             Console.WriteLine("Car rent registration finished. Press ESC to return to the menu. Press ENTER to repeat the operation.\n ");
             var key = Console.ReadKey(true);
             if (key.Key == ConsoleKey.Enter) RegRent();
@@ -39,7 +40,14 @@ namespace RentC
 
         public static void UpRent() //Car Rent Update screen
         {
-
+            Console.Clear();
+            Console.WriteLine("Opening the car rent update form.");
+            Application.Run(new UpRentForm());
+            Console.Clear();
+            Console.WriteLine("Car rent update finished. Press ESC to return to the menu. Press ENTER to repeat the operation.\n ");
+            var key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Enter) UpRent();
+            if (key.Key == ConsoleKey.Escape) MMenu();
         }
 
         public static void ListRent() //Rent Listing screen
