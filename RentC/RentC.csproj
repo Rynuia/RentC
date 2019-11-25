@@ -60,12 +60,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ListCarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListCarForm.Designer.cs">
+      <DependentUpon>ListCarForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListCustForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListCustForm.Designer.cs">
+      <DependentUpon>ListCustForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListRentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListRentForm.Designer.cs">
+      <DependentUpon>ListRentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="RegCustForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegCustForm.Designer.cs">
+      <DependentUpon>RegCustForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RegRentForm.cs">
       <SubType>Form</SubType>
@@ -77,6 +101,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rentc_dbDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="UpCustForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpCustForm.Designer.cs">
+      <DependentUpon>UpCustForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UpRentForm.cs">
       <SubType>Form</SubType>
@@ -106,11 +136,26 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ListCarForm.resx">
+      <DependentUpon>ListCarForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListCustForm.resx">
+      <DependentUpon>ListCustForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListRentForm.resx">
+      <DependentUpon>ListRentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Program.resx">
       <DependentUpon>Program.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RegCustForm.resx">
+      <DependentUpon>RegCustForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RegRentForm.resx">
       <DependentUpon>RegRentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpCustForm.resx">
+      <DependentUpon>UpCustForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UpRentForm.resx">
       <DependentUpon>UpRentForm.cs</DependentUpon>

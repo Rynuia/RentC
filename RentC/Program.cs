@@ -64,22 +64,50 @@ namespace RentC
 
         public static void ListCar() //Available Car Listing screen
         {
-
+            Console.Clear();
+            Console.WriteLine("Opening the car list.");
+            Application.Run(new ListCarForm());
+            Console.Clear();
+            Console.WriteLine("Car listing finished. Press ESC to return to the menu. Press ENTER to repeat the operation.\n ");
+            var key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Enter) ListCar();
+            if (key.Key == ConsoleKey.Escape) MMenu();
         }
 
         public static void RegCust() //Customer Registration screen
         {
-
+            Console.Clear();
+            Console.WriteLine("Opening the customer registration form.");
+            Application.Run(new RegCustForm());
+            Console.Clear();
+            Console.WriteLine("Customer registration finished. Press ESC to return to the menu. Press ENTER to repeat the operation.\n ");
+            var key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Enter) RegCust();
+            if (key.Key == ConsoleKey.Escape) MMenu();
         }
 
         public static void UpCust() //Customer Update screen
         {
-
+            Console.Clear();
+            Console.WriteLine("Opening the customer update form.");
+            Application.Run(new UpCustForm());
+            Console.Clear();
+            Console.WriteLine("Customer update finished. Press ESC to return to the menu. Press ENTER to repeat the operation.\n ");
+            var key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Enter) UpCust();
+            if (key.Key == ConsoleKey.Escape) MMenu();
         }
 
         public static void ListCust() //Customer Listing screen
         {
-
+            Console.Clear();
+            Console.WriteLine("Opening the customer list.");
+            Application.Run(new ListCustForm());
+            Console.Clear();
+            Console.WriteLine("Customer listing finished. Press ESC to return to the menu. Press ENTER to repeat the operation.\n ");
+            var key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Enter) ListCust();
+            if (key.Key == ConsoleKey.Escape) MMenu();
         }
 
         public static void MMenu() //Main menu
