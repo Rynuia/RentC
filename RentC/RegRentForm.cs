@@ -33,6 +33,9 @@ namespace RentC
             bool cIDpass;  //Flag for checking if customer ID is valid
             bool citypass;  //Flag for checking if the selected car is available in the entered city
             bool datepass;  //Flag for checking if entered date data is correct
+            bool pepass;  //Flag for checking if plate field is empty
+            bool cIDepass;  //Flag for checking if customer ID field is empty
+            bool cepass;  //Flag for checking if city field is empty
 
             SqlDataReader dr;
 
@@ -98,43 +101,90 @@ namespace RentC
                 datepass = false;
             }
             else datepass = true;
-            
+
             sqlCon.Close();
 
-            String plateerr;
-            String carerr;
-            String cIDerr;
-            String cityerr;
-            String dateerr;
-            String errmsg = "";
-            String nl = Environment.NewLine;
-
-            if (platepass == false) plateerr = "There are no cars with this plate. Check the Car Plate field again. " + nl;
-            else plateerr = "";
-
-            if (carpass == false)
+            if (cPlate_tb.Text.Length == 0)  //Check plate field
             {
-                if (platepass == false) carerr = "";
-                else carerr = "The selected car is already reserved." + nl;
+                pepass = false;
+                allgood = false;
             }
-            else carerr = "";
+            else pepass = true;
 
-            if (cIDpass == false) cIDerr = "Client ID doesn't exists. Check the Client ID field again." + nl;
-            else cIDerr = "";
-
-            if (citypass == false)
+            if (cID_tb.Text.Length == 0)  //Check customer ID field
             {
-                if (platepass == false) cityerr = "";
-                else cityerr = "The selected car is not available in the entered city." + nl;
+                cIDepass = false;
+                allgood = false;
             }
-            else cityerr = "";
+            else cIDepass = true;
 
-            if (datepass == false) dateerr = "End Date should be equal or bigger than the Start Date." + nl;
-            else dateerr = "";
+            if (city_tb.Text.Length == 0)  //Check city field
+            {
+                cepass = false;
+                allgood = false;
+            }
+            else cepass = true;
 
             if (allgood == false)
             {
-                errmsg = "The following errors have been encountered and should be resolved:" + nl + nl + plateerr + carerr + cIDerr + cityerr + dateerr;
+                string plateerr;
+                string carerr;
+                string cIDerr;
+                string cityerr;
+                string dateerr;
+                string peerr;
+                string cIDeerr;
+                string ceerr;
+                string errmsg = "";
+                string nl = Environment.NewLine;
+
+                if (platepass == false) plateerr = "There are no cars registered with this plate. Check the Car Plate field again. " + nl;
+                else plateerr = "";
+
+                if (carpass == false)
+                {
+                    if (platepass == false) carerr = "";
+                    else carerr = "The selected car is already reserved." + nl;
+                }
+                else carerr = "";
+
+                if (cIDpass == false) cIDerr = "Client ID doesn't exists. Check the Client ID field again." + nl;
+                else cIDerr = "";
+
+                if (citypass == false)
+                {
+                    if (platepass == false) cityerr = "";
+                    else cityerr = "The selected car is not available in the entered city." + nl;
+                }
+                else cityerr = "";
+
+                if (datepass == false) dateerr = "End Date should be equal or bigger than the Start Date." + nl;
+                else dateerr = "";
+
+                if (pepass == false)
+                {
+                    carerr = "";
+                    cityerr = "";
+                    peerr = "The Plate field can not be empty." + nl;
+                }
+                else peerr = "";
+
+                if (cIDepass == false)
+                {
+                    cIDerr = "";
+                    cIDeerr = "The Client ID field can not be empty." + nl;
+                }
+                else cIDeerr = "";
+
+                if (cepass == false)
+                {
+                    cityerr = "";
+                    ceerr = "The City field can not be empty." + nl;
+                }
+                else ceerr = "";
+
+
+                errmsg = "The following errors have been encountered and should be resolved:" + nl + nl + peerr + cIDeerr + ceerr + plateerr + carerr + cIDerr + cityerr + dateerr;
                 MessageBox.Show(errmsg, "Error");
             }
 
@@ -161,7 +211,7 @@ namespace RentC
                     int i = doRegister.ExecuteNonQuery();
 
                     if (i != 0) MessageBox.Show("Successfully saved the new registration record");  //Operation successful
-                    else MessageBox.Show("Error saving the registration record");  //Operation failed
+                    else MessageBox.Show("Error saving the registration record", "Error");  //Operation failed
 
                     sqlCon.Close();
                 }
@@ -185,6 +235,14 @@ namespace RentC
         private void btn_exit_Click(object sender, EventArgs e)  //Exit button
         {
             this.Close();
+        }
+
+        private void city_tb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

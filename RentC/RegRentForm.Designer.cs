@@ -102,6 +102,7 @@
             // 
             this.cPlate_tb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cPlate_tb.Location = new System.Drawing.Point(172, 43);
+            this.cPlate_tb.MaxLength = 10;
             this.cPlate_tb.Name = "cPlate_tb";
             this.cPlate_tb.Size = new System.Drawing.Size(120, 26);
             this.cPlate_tb.TabIndex = 5;
@@ -120,9 +121,11 @@
             // 
             this.city_tb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.city_tb.Location = new System.Drawing.Point(172, 224);
+            this.city_tb.MaxLength = 50;
             this.city_tb.Name = "city_tb";
             this.city_tb.Size = new System.Drawing.Size(120, 26);
             this.city_tb.TabIndex = 9;
+            this.city_tb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.city_tb_KeyPress);
             // 
             // btn_confirm
             // 

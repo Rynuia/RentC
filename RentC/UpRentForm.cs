@@ -14,8 +14,6 @@ namespace RentC
     public partial class UpRentForm : Form
     {
 
-
-
         string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\rentc_db.mdf;Integrated Security = True; Connect Timeout = 30; User Instance = False"; //Connection String
 
         public UpRentForm()
@@ -43,14 +41,14 @@ namespace RentC
             SqlCommand getdata = new SqlCommand();
 
             string carIDquery = "SELECT CarID FROM Cars WHERE Plate='" + cPlate_tb.Text + "'";
-            string selquery = "SELECT * FROM Reservations WHERE CarID=@carID";
+            string selquery = "SELECT * FROM Reservations WHERE CarID=@CarID";
 
             sqlCon.Open();
 
             getcID.Connection = sqlCon;
             getcID.CommandText = carIDquery;  //Get CarID from cars
             dr = getcID.ExecuteReader();
-            if (dr.Read())
+            if (dr.Read())  
             {
                 if (dr.HasRows)
                 {
@@ -78,7 +76,7 @@ namespace RentC
                 getdata.CommandText = selquery;  //Get entry data from Reservations
                 getdata.Parameters.Add("@CarID", SqlDbType.Int).Value = carID;
                 dr = getdata.ExecuteReader();
-                if (dr.Read())
+                if (dr.Read())  
                 {
                     if (dr.HasRows)
                     {
@@ -151,6 +149,9 @@ namespace RentC
             bool cIDpass;  //Flag for checking if customer ID is valid
             bool citypass;  //Flag for checking if the selected car is available in the entered city
             bool datepass;  //Flag for checking if entered date data is correct
+            bool pepass;  //Flag for checking if the plate field is empty
+            bool cIDepass;  //Flag for checking if the customer ID field is empty
+            bool cepass;  //Flag for checking if the city field is empty
 
             SqlDataReader dr;
 
@@ -208,33 +209,80 @@ namespace RentC
 
             sqlCon.Close();
 
-            String plateerr;
-            String cIDerr;
-            String cityerr;
-            String dateerr;
-            String errmsg = "";
-            String nl = Environment.NewLine;
-
-            if (platepass == false) plateerr = "There are no cars with this plate. Check the Car Plate field again. " + nl;
-            else plateerr = "";
-
-
-            if (cIDpass == false) cIDerr = "Client ID doesn't exists. Check the Client ID field again." + nl;
-            else cIDerr = "";
-
-            if (citypass == false)
+            if (cPlate_new_tb.Text.Length == 0)  //Check plate field
             {
-                if (platepass == false) cityerr = "";
-                else cityerr = "The selected car is not available in the entered city." + nl;
+                pepass = false;
+                allgood = false;
             }
-            else cityerr = "";
+            else pepass = true;
 
-            if (datepass == false) dateerr = "End Date should be equal or bigger than the Start Date." + nl;
-            else dateerr = "";
+            if (cID_tb.Text.Length == 0)  //Check customer ID field
+            {
+                cIDepass = false;
+                allgood = false;
+            }
+            else cIDepass = true;
+
+            if (city_tb.Text.Length == 0)  //Check city field
+            {
+                cepass = false;
+                allgood = false;
+            }
+            else cepass = true;
 
             if (allgood == false)
             {
-                errmsg = "The following errors have been encountered and should be resolved:" + nl + nl + plateerr + cIDerr + cityerr + dateerr;
+                string plateerr;
+                string cIDerr;
+                string cityerr;
+                string dateerr;
+                string peerr;
+                string cIDeerr;
+                string ceerr;
+                string errmsg = "";
+                string nl = Environment.NewLine;
+
+                if (platepass == false) plateerr = "There are no cars with this plate. Check the Car Plate field again. " + nl;
+                else plateerr = "";
+
+
+                if (cIDpass == false) cIDerr = "Client ID doesn't exists. Check the Client ID field again." + nl;
+                else cIDerr = "";
+
+                if (citypass == false)
+                {
+                    if (platepass == false) cityerr = "";
+                    else cityerr = "The selected car is not available in the entered city." + nl;
+                }
+                else cityerr = "";
+
+                if (datepass == false) dateerr = "End Date should be equal or bigger than the Start Date." + nl;
+                else dateerr = "";
+
+                if (pepass == false)
+                {
+                    cityerr = "";
+                    peerr = "The Plate field can not be empty." + nl;
+                }
+                else peerr = "";
+
+                if (cIDepass == false)
+                {
+                    cIDerr = "";
+                    cIDeerr = "The Client ID field can not be empty." + nl;
+                }
+                else cIDeerr = "";
+
+                if (cepass == false)
+                {
+                    cityerr = "";
+                    ceerr = "The City field can not be empty." + nl;
+                }
+                else ceerr = "";
+
+
+
+                errmsg = "The following errors have been encountered and should be resolved:" + nl + nl + peerr + cIDeerr + ceerr + plateerr + cIDerr + cityerr + dateerr;
                 MessageBox.Show(errmsg, "Error");
             }
 
@@ -288,7 +336,7 @@ namespace RentC
                 SqlConnection sqlCon = new SqlConnection(connectionString);
 
 
-                String query = "DELETE FROM Reservations WHERE CarID = @carID";
+                String query = "DELETE FROM Reservations WHERE CarID = @CarID";
 
                 using (SqlCommand doDelete = new SqlCommand(query, sqlCon))
                 {
@@ -300,7 +348,7 @@ namespace RentC
 
                     if (i != 0)
                     {
-                        MessageBox.Show("Successfully deleted the registration entry");  //Operation successful
+                        MessageBox.Show("Successfully deleted the registration record");  //Operation successful
 
                         carID_db.Text = String.Empty;
                         cPlate_new_tb.Text = String.Empty;
@@ -327,10 +375,6 @@ namespace RentC
                     sqlCon.Close();
                 }
             }
-
-            
-
-
         }
 
         private void btn_exit_Click(object sender, EventArgs e)  //Exit button
@@ -341,6 +385,14 @@ namespace RentC
         private void cID_tb_KeyPress(object sender, KeyPressEventArgs e)  //Restricts input so that only numbers can be entered to Customer ID field
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void city_tb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }

@@ -143,9 +143,11 @@
             this.city_tb.Enabled = false;
             this.city_tb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.city_tb.Location = new System.Drawing.Point(186, 327);
+            this.city_tb.MaxLength = 40;
             this.city_tb.Name = "city_tb";
             this.city_tb.Size = new System.Drawing.Size(120, 26);
             this.city_tb.TabIndex = 15;
+            this.city_tb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.city_tb_KeyPress);
             // 
             // cID_tb
             // 
@@ -162,6 +164,7 @@
             // 
             this.cPlate_tb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cPlate_tb.Location = new System.Drawing.Point(186, 37);
+            this.cPlate_tb.MaxLength = 10;
             this.cPlate_tb.Name = "cPlate_tb";
             this.cPlate_tb.Size = new System.Drawing.Size(120, 26);
             this.cPlate_tb.TabIndex = 13;
@@ -206,17 +209,17 @@
             this.cID_db.AutoSize = true;
             this.cID_db.BackColor = System.Drawing.SystemColors.Info;
             this.cID_db.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.cID_db.Location = new System.Drawing.Point(207, 97);
-            this.cID_db.MinimumSize = new System.Drawing.Size(41, 16);
+            this.cID_db.Location = new System.Drawing.Point(206, 97);
+            this.cID_db.MinimumSize = new System.Drawing.Size(50, 16);
             this.cID_db.Name = "cID_db";
-            this.cID_db.Size = new System.Drawing.Size(41, 16);
+            this.cID_db.Size = new System.Drawing.Size(50, 16);
             this.cID_db.TabIndex = 21;
             // 
             // cID_db_lb
             // 
             this.cID_db_lb.AutoSize = true;
             this.cID_db_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.cID_db_lb.Location = new System.Drawing.Point(141, 97);
+            this.cID_db_lb.Location = new System.Drawing.Point(140, 97);
             this.cID_db_lb.Name = "cID_db_lb";
             this.cID_db_lb.Size = new System.Drawing.Size(60, 16);
             this.cID_db_lb.TabIndex = 20;
@@ -227,7 +230,7 @@
             this.sDate_db.AutoSize = true;
             this.sDate_db.BackColor = System.Drawing.SystemColors.Info;
             this.sDate_db.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.sDate_db.Location = new System.Drawing.Point(345, 97);
+            this.sDate_db.Location = new System.Drawing.Point(351, 97);
             this.sDate_db.MinimumSize = new System.Drawing.Size(75, 16);
             this.sDate_db.Name = "sDate_db";
             this.sDate_db.Size = new System.Drawing.Size(75, 16);
@@ -237,7 +240,7 @@
             // 
             this.sDate_db_lb.AutoSize = true;
             this.sDate_db_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.sDate_db_lb.Location = new System.Drawing.Point(269, 97);
+            this.sDate_db_lb.Location = new System.Drawing.Point(275, 97);
             this.sDate_db_lb.Name = "sDate_db_lb";
             this.sDate_db_lb.Size = new System.Drawing.Size(70, 16);
             this.sDate_db_lb.TabIndex = 22;
@@ -248,7 +251,7 @@
             this.eDate_db.AutoSize = true;
             this.eDate_db.BackColor = System.Drawing.SystemColors.Info;
             this.eDate_db.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.eDate_db.Location = new System.Drawing.Point(514, 97);
+            this.eDate_db.Location = new System.Drawing.Point(524, 97);
             this.eDate_db.MinimumSize = new System.Drawing.Size(75, 16);
             this.eDate_db.Name = "eDate_db";
             this.eDate_db.Size = new System.Drawing.Size(75, 16);
@@ -258,7 +261,7 @@
             // 
             this.eDate_db_lb.AutoSize = true;
             this.eDate_db_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.eDate_db_lb.Location = new System.Drawing.Point(441, 97);
+            this.eDate_db_lb.Location = new System.Drawing.Point(451, 97);
             this.eDate_db_lb.Name = "eDate_db_lb";
             this.eDate_db_lb.Size = new System.Drawing.Size(67, 16);
             this.eDate_db_lb.TabIndex = 24;
@@ -269,7 +272,7 @@
             this.city_db.AutoSize = true;
             this.city_db.BackColor = System.Drawing.SystemColors.Info;
             this.city_db.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.city_db.Location = new System.Drawing.Point(652, 97);
+            this.city_db.Location = new System.Drawing.Point(666, 97);
             this.city_db.MinimumSize = new System.Drawing.Size(150, 16);
             this.city_db.Name = "city_db";
             this.city_db.Size = new System.Drawing.Size(150, 16);
@@ -279,7 +282,7 @@
             // 
             this.city_db_lb.AutoSize = true;
             this.city_db_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.city_db_lb.Location = new System.Drawing.Point(613, 97);
+            this.city_db_lb.Location = new System.Drawing.Point(627, 97);
             this.city_db_lb.Name = "city_db_lb";
             this.city_db_lb.Size = new System.Drawing.Size(33, 16);
             this.city_db_lb.TabIndex = 26;
@@ -332,6 +335,7 @@
             this.cPlate_new_tb.Enabled = false;
             this.cPlate_new_tb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cPlate_new_tb.Location = new System.Drawing.Point(186, 147);
+            this.cPlate_new_tb.MaxLength = 10;
             this.cPlate_new_tb.Name = "cPlate_new_tb";
             this.cPlate_new_tb.Size = new System.Drawing.Size(120, 26);
             this.cPlate_new_tb.TabIndex = 33;
