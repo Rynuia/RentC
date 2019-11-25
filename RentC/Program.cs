@@ -123,7 +123,7 @@ namespace RentC
             var key = Console.ReadKey(true); //Save the key pressed
 
 
-            do  //Switch cases not working due "key"'s variable type. Cannot reiterate "key" without using "input".   Todo: Check alternatives to Console.ReadKey while keeping the semi-recursive loop structure.
+            do
             {
                 
                 if (key.Key == ConsoleKey.D1 | key.Key == ConsoleKey.NumPad1)
@@ -270,6 +270,12 @@ namespace RentC
 
             }
             while (!valid);
+
+            Console.Clear();
+            Console.WriteLine("Unexpected error. Press ENTER to return to the menu. Press ESC to exit the application.\n ");
+            var ekey = Console.ReadKey(true);
+            if (ekey.Key == ConsoleKey.Enter) MMenu();  //Reiterate the menu
+            if (ekey.Key == ConsoleKey.Escape) Environment.Exit(0);  //Exit the app
 
         }
     }

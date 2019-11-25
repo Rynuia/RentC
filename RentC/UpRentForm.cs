@@ -37,17 +37,18 @@ namespace RentC
 
             SqlDataReader dr;
 
-            SqlCommand getcID = new SqlCommand();
+            SqlCommand getcarID = new SqlCommand();
             SqlCommand getdata = new SqlCommand();
 
-            string carIDquery = "SELECT CarID FROM Cars WHERE Plate='" + cPlate_tb.Text + "'";
+            string carIDquery = "SELECT CarID FROM Cars WHERE Plate=@Plate";
             string selquery = "SELECT * FROM Reservations WHERE CarID=@CarID";
 
             sqlCon.Open();
 
-            getcID.Connection = sqlCon;
-            getcID.CommandText = carIDquery;  //Get CarID from cars
-            dr = getcID.ExecuteReader();
+            getcarID.Connection = sqlCon;
+            getcarID.CommandText = carIDquery;  //Get CarID from cars
+            getcarID.Parameters.AddWithValue("@Plate", cPlate_tb.Text);
+            dr = getcarID.ExecuteReader();
             if (dr.Read())  
             {
                 if (dr.HasRows)
@@ -92,6 +93,7 @@ namespace RentC
 
                     else
                     {
+                        carID_db.Text = String.Empty;
                         MessageBox.Show("There are no reservations registered.");
                         allgood = false;
                     }
@@ -164,7 +166,8 @@ namespace RentC
             sqlCon.Open();
 
             checkModel.Connection = sqlCon;
-            checkModel.CommandText = "SELECT * FROM Cars where Plate='" + cPlate_tb.Text + "'";  //Validation for car plate
+            checkModel.CommandText = "SELECT * FROM Cars where Plate=@Plate";  //Validation for car plate
+            checkModel.Parameters.AddWithValue("@Plate", cPlate_tb.Text);
             dr = checkModel.ExecuteReader();
             if (dr.Read()) platepass = true;
             else
@@ -175,7 +178,8 @@ namespace RentC
             dr.Close();
 
             checkcID.Connection = sqlCon;
-            checkcID.CommandText = "SELECT * FROM Customers where CostumerID='" + cID_tb.Text + "'";  //Validation for customer ID
+            checkcID.CommandText = "SELECT * FROM Customers where CostumerID=@CostumerID";  //Validation for customer ID
+            checkcID.Parameters.AddWithValue("@CostumerID", Convert.ToInt32(cID_tb.Text));
             dr = checkcID.ExecuteReader();
             if (dr.Read()) cIDpass = true;
             else
@@ -186,7 +190,9 @@ namespace RentC
             dr.Close();
 
             checkcCity.Connection = sqlCon;
-            checkcCity.CommandText = "SELECT * FROM Cars where Location='" + city_tb.Text + "' and Plate='" + cPlate_new_tb.Text + "'";  //Validation for car availability in the city
+            checkcCity.CommandText = "SELECT * FROM Cars where Location=@Location and Plate=@Plate";  //Validation for car availability in the city
+            checkcCity.Parameters.AddWithValue("@Location", city_tb.Text);
+            checkcCity.Parameters.AddWithValue("@Plate", cPlate_new_tb.Text);
             dr = checkcCity.ExecuteReader();
             if (dr.Read()) citypass = true;
             else
@@ -288,8 +294,11 @@ namespace RentC
 
             else if (allgood == true)
             {
+                sqlCon.Open();
+
                 getcarID.Connection = sqlCon;
-                getcarID.CommandText = "SELECT CarID FROM Cars WHERE Plate='" + cPlate_new_tb.Text + "'";  //Get carID from Cars table using Plate
+                getcarID.CommandText = "SELECT CarID FROM Cars WHERE Plate=@Plate";  //Get carID from Cars table using Plate
+                getcarID.Parameters.AddWithValue("@Plate", cPlate_new_tb.Text);
                 int carID = (int)getcarID.ExecuteScalar();
 
                 String query = "UPDATE Reservations SET CarID = @CarID, CostumerID = @CostumerID, StartDate = @StartDate, EndDate = @EndDate, Location = @Location, Plate = @Plate WHERE CarID = @oCarID";
@@ -303,8 +312,6 @@ namespace RentC
                     doUpdate.Parameters.AddWithValue("@Location", city_tb.Text);
                     doUpdate.Parameters.AddWithValue("@oCarID", Convert.ToInt32(carID_db.Text));
                     doUpdate.Parameters.AddWithValue("@Plate", cPlate_new_tb.Text);
-
-                    sqlCon.Open();
 
                     int i = doUpdate.ExecuteNonQuery();
 

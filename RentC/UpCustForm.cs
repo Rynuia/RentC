@@ -230,14 +230,31 @@ namespace RentC
             {
                 SqlConnection sqlCon = new SqlConnection(connectionString);
 
+                string query = "DELETE FROM Customers WHERE CostumerID = @CostumerID";
 
-                String query = "DELETE FROM Customers WHERE CostumerID = @CostumerID";
+                sqlCon.Open();
+
+                SqlCommand CheckRows = new SqlCommand();
+                CheckRows.Connection = sqlCon;
+                CheckRows.CommandText = "SELECT COUNT(*) FROM Reservations WHERE CostumerID=@CostumerID";  //Check if there are rentals registered for the deleted customer
+                CheckRows.Parameters.AddWithValue("@CostumerID", Convert.ToInt32(cID_db.Text));
+                int rows = (int)CheckRows.ExecuteScalar();
+
+                if (rows > 0)
+                {
+                    string rquery = "DELETE FROM Reservations WHERE CostumerID=@CostumerID";  //Delete the rental record of deleted customer, if there are
+                    SqlCommand deleteres = new SqlCommand();
+                    deleteres.Connection = sqlCon;
+                    deleteres.CommandText = rquery;
+                    deleteres.Parameters.AddWithValue("@CostumerID", Convert.ToInt32(cID_db.Text));
+                    deleteres.ExecuteNonQuery();
+                }
 
                 using (SqlCommand doDelete = new SqlCommand(query, sqlCon))
                 {
                     doDelete.Parameters.AddWithValue("@CostumerID", Convert.ToInt32(cID_db.Text));
 
-                    sqlCon.Open();
+
 
                     int i = doDelete.ExecuteNonQuery();
 

@@ -48,7 +48,8 @@ namespace RentC
             sqlCon.Open();
 
             checkModel.Connection = sqlCon;
-            checkModel.CommandText = "SELECT * FROM Cars where Plate='" + cPlate_tb.Text + "'";  //Validation for car plate
+            checkModel.CommandText = "SELECT * FROM Cars where Plate=@Plate";  //Validation for car plate
+            checkModel.Parameters.AddWithValue("@Plate", cPlate_tb.Text);
             dr = checkModel.ExecuteReader();
             if (dr.Read()) platepass = true;
             else
@@ -59,7 +60,8 @@ namespace RentC
             dr.Close();
 
             checkCar.Connection = sqlCon;
-            checkCar.CommandText = "SELECT * FROM Reservations where CarID IN (SELECT CarID FROM Cars WHERE Plate='" + cPlate_tb.Text + "')";  //Validation for car availability
+            checkCar.CommandText = "SELECT * FROM Reservations where CarID IN (SELECT CarID FROM Cars WHERE Plate=@Plate)";  //Validation for car availability
+            checkCar.Parameters.AddWithValue("@Plate", cPlate_tb.Text);
             dr = checkCar.ExecuteReader();
             if (dr.Read())
             {
@@ -70,7 +72,8 @@ namespace RentC
             dr.Close();
 
             checkcID.Connection = sqlCon;
-            checkcID.CommandText = "SELECT * FROM Customers where CostumerID='" + cID_tb.Text + "'";  //Validation for customer ID
+            checkcID.CommandText = "SELECT * FROM Customers where CostumerID=@CostumerID";  //Validation for customer ID
+            checkcID.Parameters.AddWithValue("@CostumerID", Convert.ToInt32(cID_tb.Text));
             dr = checkcID.ExecuteReader();
             if (dr.Read()) cIDpass = true;
             else
@@ -81,7 +84,9 @@ namespace RentC
             dr.Close();
 
             checkcCity.Connection = sqlCon;
-            checkcCity.CommandText = "SELECT * FROM Cars where Location='" + city_tb.Text + "' and Plate='" + cPlate_tb.Text + "'";  //Validation for car availability in the city
+            checkcCity.CommandText = "SELECT * FROM Cars where Location=@Location and Plate=@Plate";  //Validation for car availability in the city
+            checkcCity.Parameters.AddWithValue("@Location", city_tb.Text);
+            checkcCity.Parameters.AddWithValue("@Plate", cPlate_tb.Text);
             dr = checkcCity.ExecuteReader();
             if (dr.Read()) citypass = true;
             else
@@ -190,6 +195,8 @@ namespace RentC
 
             else if (allgood == true)
             {
+                sqlCon.Open();
+
                 getcarID.Connection = sqlCon;
                 getcarID.CommandText = "SELECT CarID FROM Cars WHERE Plate='" + cPlate_tb.Text + "'";  //Get carID from Cars table using Plate
                 int carID = (int)getcarID.ExecuteScalar();
@@ -205,8 +212,6 @@ namespace RentC
                     doRegister.Parameters.Add("@EndDate", SqlDbType.Date).Value = end_tp.Value.Date;
                     doRegister.Parameters.AddWithValue("@Location", city_tb.Text);
                     doRegister.Parameters.AddWithValue("@Plate", cPlate_tb.Text);
-
-                    sqlCon.Open();
 
                     int i = doRegister.ExecuteNonQuery();
 
