@@ -287,12 +287,12 @@ namespace RentC
         public static void Main(string[] args)
         {
 
-            Application.EnableVisualStyles(); //Forms compatibility, enables visual styles for the app
-            Application.SetCompatibleTextRenderingDefault(false); //Forms compatibility, alters TextRenderer behavior
+            Application.EnableVisualStyles();  //Forms compatibility, enables visual styles for the app
+            Application.SetCompatibleTextRenderingDefault(false);  //Forms compatibility, alters TextRenderer behavior
 
-            Menu.Welc(); //Call Welcome screen
+            Menu.Welc();  //Call Welcome screen
 
-            Menu.MMenu(); //Call Main menu
+            Menu.MMenu();  //Call Main menu
 
         }
     }
