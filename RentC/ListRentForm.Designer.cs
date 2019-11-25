@@ -53,7 +53,7 @@
             this.CostumerID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,11 +69,12 @@
             this.CostumerID,
             this.StartDate,
             this.EndDate,
-            this.Location});
+            this.cLocation});
             this.dgv.Location = new System.Drawing.Point(12, 12);
             this.dgv.Name = "dgv";
+            this.dgv.ReadOnly = true;
             this.dgv.ShowEditingIcon = false;
-            this.dgv.Size = new System.Drawing.Size(800, 334);
+            this.dgv.Size = new System.Drawing.Size(759, 334);
             this.dgv.TabIndex = 0;
             // 
             // btn_eno_sort
@@ -178,9 +179,9 @@
             this.cID_lb.AutoSize = true;
             this.cID_lb.Location = new System.Drawing.Point(332, 385);
             this.cID_lb.Name = "cID_lb";
-            this.cID_lb.Size = new System.Drawing.Size(65, 13);
+            this.cID_lb.Size = new System.Drawing.Size(47, 13);
             this.cID_lb.TabIndex = 11;
-            this.cID_lb.Text = "Customer ID";
+            this.cID_lb.Text = "Client ID";
             // 
             // sdate_lb
             // 
@@ -220,7 +221,7 @@
             // 
             // btn_exit
             // 
-            this.btn_exit.Location = new System.Drawing.Point(715, 476);
+            this.btn_exit.Location = new System.Drawing.Point(667, 476);
             this.btn_exit.Name = "btn_exit";
             this.btn_exit.Size = new System.Drawing.Size(75, 23);
             this.btn_exit.TabIndex = 23;
@@ -251,48 +252,62 @@
             this.ReservStatsID.DataPropertyName = "ReservStatsID";
             this.ReservStatsID.HeaderText = "Entry No";
             this.ReservStatsID.Name = "ReservStatsID";
+            this.ReservStatsID.ReadOnly = true;
+            this.ReservStatsID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Plate
             // 
             this.Plate.DataPropertyName = "Plate";
             this.Plate.HeaderText = "Plate";
             this.Plate.Name = "Plate";
+            this.Plate.ReadOnly = true;
+            this.Plate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // CarID
             // 
             this.CarID.DataPropertyName = "CarID";
             this.CarID.HeaderText = "Car ID";
             this.CarID.Name = "CarID";
+            this.CarID.ReadOnly = true;
+            this.CarID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // CostumerID
             // 
             this.CostumerID.DataPropertyName = "CostumerID";
-            this.CostumerID.HeaderText = "Customer ID";
+            this.CostumerID.HeaderText = "Client ID";
             this.CostumerID.Name = "CostumerID";
+            this.CostumerID.ReadOnly = true;
+            this.CostumerID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // StartDate
             // 
             this.StartDate.DataPropertyName = "StartDate";
             this.StartDate.HeaderText = "Start Date";
             this.StartDate.Name = "StartDate";
+            this.StartDate.ReadOnly = true;
+            this.StartDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // EndDate
             // 
             this.EndDate.DataPropertyName = "EndDate";
             this.EndDate.HeaderText = "End Date";
             this.EndDate.Name = "EndDate";
+            this.EndDate.ReadOnly = true;
+            this.EndDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // Location
+            // cLocation
             // 
-            this.Location.DataPropertyName = "Location";
-            this.Location.HeaderText = "City";
-            this.Location.Name = "Location";
+            this.cLocation.DataPropertyName = "Location";
+            this.cLocation.HeaderText = "City";
+            this.cLocation.Name = "cLocation";
+            this.cLocation.ReadOnly = true;
+            this.cLocation.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // ListRentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 524);
+            this.ClientSize = new System.Drawing.Size(783, 524);
             this.Controls.Add(this.cs_lb);
             this.Controls.Add(this.cursort_lb);
             this.Controls.Add(this.btn_exit);
@@ -348,6 +363,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CostumerID;
         private System.Windows.Forms.DataGridViewTextBoxColumn StartDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn EndDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Location;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cLocation;
     }
 }

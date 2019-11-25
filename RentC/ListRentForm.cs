@@ -237,7 +237,7 @@ namespace RentC
                 btn_sdate_sort.Text = "Ascending";
                 btn_edate_sort.Text = "Ascending";
                 btn_city_sort.Text = "Ascending";
-                cs_lb.Text = "Customer ID Ascending";
+                cs_lb.Text = "Client ID Ascending";
             }
 
             else if (btn_cID_sort.Text == "Descending")
@@ -261,7 +261,7 @@ namespace RentC
                 btn_sdate_sort.Text = "Ascending";
                 btn_edate_sort.Text = "Ascending";
                 btn_city_sort.Text = "Ascending";
-                cs_lb.Text = "Customer ID Descending";
+                cs_lb.Text = "Client ID Descending";
             }
         }
 
