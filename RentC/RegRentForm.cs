@@ -198,7 +198,8 @@ namespace RentC
                 sqlCon.Open();
 
                 getcarID.Connection = sqlCon;
-                getcarID.CommandText = "SELECT CarID FROM Cars WHERE Plate='" + cPlate_tb.Text + "'";  //Get carID from Cars table using Plate
+                getcarID.CommandText = "SELECT CarID FROM Cars WHERE Plate=@Plate";  //Get carID from Cars table using Plate
+                getcarID.Parameters.AddWithValue("@Plate", cPlate_tb.Text);
                 int carID = (int)getcarID.ExecuteScalar();
 
 
